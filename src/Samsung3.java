@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+
 public class Samsung3 {
     static class ListNode {
         private String data;
