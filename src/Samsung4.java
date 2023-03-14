@@ -2,8 +2,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-import javax.swing.text.AsyncBoxView;
-
 /*
     answer = 지나갈 수 있는 길 개수
     N = 행, 열 개수
