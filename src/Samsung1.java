@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+
 public class Samsung1 {
     static int N;
     static int[][] stateTable;
