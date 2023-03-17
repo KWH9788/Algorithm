@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 
 /*
     가지고 있는 숫자 카드중에서 문제에서 주어진 숫자가 몇개 있는지 찾는 문제
-    해시맵을 이용해서 key: 숫자, value: 중복 개수로 저장해서 간단하게 푸는 방법
+    해시맵을 이용해서 key: 숫자, value: 중복 개수로 저장해서 간단하게 푸는 방법 
 */
 
 public class Sort_1 {
@@ -29,6 +29,7 @@ public class Sort_1 {
         }
 
         StringBuilder ans = new StringBuilder();
+        
         M = Integer.parseInt(br.readLine());
         st = new StringTokenizer(br.readLine());
         for(int i = 0; i < M; i++) {
