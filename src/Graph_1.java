@@ -11,6 +11,7 @@ public class Graph_1 {
         Location(int row, int col) {
             this.row = row;
             this.col = col;
+            
         }
     }
     static int R, C;
@@ -63,7 +64,7 @@ public class Graph_1 {
                 int col = now.col + plusCol[i];
                 // index 범위 초과 방지
                 if(row > R - 1 || row < 0 || col > C - 1 || col < 0) continue;
-                if(cave[row][col] == 'x') queue.add(new Location(row, col));
+                if(cave[row][col] == 'x' || !visited[row][col]) queue.add(new Location(row, col));
                 if(maxRow < row) maxRow = row;
             }
             // 클러스터 위치 정보 추가
