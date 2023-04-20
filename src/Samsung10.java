@@ -14,7 +14,7 @@ class House {
 public class Samsung10 {
     static int N, M, answer = 99999;
     static int[][] map;
-    static Boolean[] visited;
+    static boolean[] visited;
     // 치킨집 좌표 배열
     static ArrayList<House> chickenHouses = new ArrayList<>();
     // 집 좌표 배열
@@ -40,38 +40,74 @@ public class Samsung10 {
                 map[i][j] = spot;
             }
         }
-    }
 
-    void BackTracking(int level) {
-        // 유망성 검사
-        // 최소값 보다 크면 가지치기
+        visited = new boolean[chickenHouses.size()];
 
-        for(int i = 0; i < chickenHouses.size(); i++) {
-            visited[i] = true;
-            BackTracking(level+1);
-            visited[i] = false;
-        }
-    }
-
-    void promising() {
-        int lenght = 0, min;
-        for(int i = 0; i < houses.size(); i++) {
-            House house = houses.get(i);
-            for(int j = 0; j < chickenHouses.size(); j++) {
-                // 임시 치킨거리
-                int l = 0;
-                if(visited[j]) {
-                    House chicken = chickenHouses.get(j);
-                    if(house.row - chicken.row < 0) {
-                        l += ((house.row - chicken.row) * -1);
-                    }
-                    if(house.column - house.column < 0) {
-                        l += ((house.column - chicken.column) * -1);
-                    }
-                    if(lenght != 0 && l < lenght) lenght = l;
-                }
-
+        // 폐업시키지 않을 치킨집 최대 M개와 치킨집의 개수가 같을 때
+        if(chickenHouses.size() == M) {
+            for(int i = 0; i < M; i++) {
+                visited[i] = true;
+                promising();
             }
         }
+        else BackTracking(1, 0);
+        System.out.println(answer);
+    }
+
+    static void BackTracking(int level, int index) {
+        if(level > M+1) return;
+        else if(level == M+1) {
+            // System.out.print("level : " + level + ", ");
+            promising();
+        }
+
+        for(int i = index; i < chickenHouses.size(); i++) {
+            if(!visited[i]){
+                visited[i] = true;
+                BackTracking(level+1, i);
+                visited[i] = false;
+            }
+        }
+    }
+
+    static void promising() {
+        int lenght, min = 0, rL, cL;
+
+        for(int i = 0; i < houses.size(); i++) {
+            // 최단 거리
+            lenght = 0;
+            House house = houses.get(i);
+            for(int j = 0; j < chickenHouses.size(); j++) {
+                // 폐업시키지 않을 치킨집
+                if(visited[j]) {
+                    House chicken = chickenHouses.get(j);
+                    // row 거리
+                    if(house.row - chicken.row < 0) {
+                        rL = ((house.row - chicken.row) * -1);
+                    } else {
+                        rL = house.row - chicken.row;
+                    }
+                    // col 거리
+                    if(house.column - chicken.column < 0) {
+                        cL = ((house.column - chicken.column) * -1);
+                    } else {
+                        cL = house.column - chicken.column;
+                    }
+
+                    // 최단 거리
+                    if(lenght == 0) lenght = rL + cL;
+                    else if((rL + cL) < lenght) lenght = rL + cL;
+                }
+            }   // 치킨집 탐색
+
+            min += lenght;
+        }   // 집 순회
+
+        if(answer > min) {
+            answer = min;
+            // System.out.print("min : " + answer + "\n");
+            return;
+        }
+        // System.out.print("value : " + min + "\n");
     }
 }
