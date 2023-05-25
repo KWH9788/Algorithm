@@ -6,11 +6,10 @@ import java.util.StringTokenizer;
 
 public class Samsung13 {
     static class Fish {
-        int x, y, size;
-        Fish(int x, int y, int size) {
+        int x, y, size = 2;
+        Fish(int x, int y) {
             this.x = x;
             this.y = y;
-            this.size = size;
         }
     }
     static class Node {
@@ -39,7 +38,7 @@ public class Samsung13 {
             for(int j = 0; j < N; j++) {
                 map[i][j] = Integer.parseInt(st.nextToken());
                 if(map[i][j] == 9) {
-                    shark = new Fish(j, i, 2);
+                    shark = new Fish(j, i);
                     bfs.add(new Node(j, i));
                     visited[i][j] = true;
                     map[i][j] = 0;
@@ -78,8 +77,9 @@ public class Samsung13 {
                     }
                 }
                 for(int j = 0; j < 4; j++) {
-                    // 인덱스 초과 방지 && 방문체크 && 상어 보다 작거나 같은 물고기
+                    // 인덱스 초과 방지 && 방문체크
                     if(now.y + plusY[j] >= 0 && now.y + plusY[j] < N && now.x + plusX[j] >= 0 && now.x + plusX[j] < N && !visited[now.y + plusY[j]][now.x + plusX[j]]){
+                        // 상어 보다 작거나 같은 물고기
                         if(shark.size >= map[now.y + plusY[j]][now.x + plusX[j]]) {
                             bfs.add(new Node(now.x + plusX[j], now.y + plusY[j]));
                             visited[now.y + plusY[j]][now.x + plusX[j]] = true;
